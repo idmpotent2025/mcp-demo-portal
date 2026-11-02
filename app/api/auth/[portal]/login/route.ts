@@ -19,10 +19,7 @@ export async function GET(
     return NextResponse.redirect(new URL('/', process.env.APP_BASE_URL!))
   }
 
-  const clientId = process.env[`${portal.toUpperCase()}_CLIENT_ID`]
-  if (!clientId) {
-    return new NextResponse(`Missing ${portal.toUpperCase()}_CLIENT_ID`, { status: 500 })
-  }
+  const clientId = process.env.AUTH0_CLIENT_ID!
 
   const verifier = base64url(crypto.getRandomValues(new Uint8Array(32)))
   const challenge = base64url(await sha256(verifier))
@@ -39,6 +36,7 @@ export async function GET(
   authUrl.searchParams.set('code_challenge', challenge)
   authUrl.searchParams.set('code_challenge_method', 'S256')
   authUrl.searchParams.set('state', state)
+  authUrl.searchParams.set('ext-brand', portal)
 
   const res = NextResponse.redirect(authUrl)
 

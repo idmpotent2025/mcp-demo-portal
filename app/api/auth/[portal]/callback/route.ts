@@ -29,8 +29,8 @@ export async function GET(
     return NextResponse.redirect(`${base}?error=invalid_state`)
   }
 
-  const clientId = process.env[`${portal.toUpperCase()}_CLIENT_ID`]!
-  const clientSecret = process.env[`${portal.toUpperCase()}_CLIENT_SECRET`]!
+  const clientId = process.env.AUTH0_CLIENT_ID!
+  const clientSecret = process.env.AUTH0_CLIENT_SECRET!
   const callbackUrl = `${base}/api/auth/${portal}/callback`
 
   const tokenRes = await fetch(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {

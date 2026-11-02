@@ -13,12 +13,10 @@ export async function GET(
     return NextResponse.redirect(returnTo)
   }
 
-  const clientId = process.env[`${portal.toUpperCase()}_CLIENT_ID`]
+  const clientId = process.env.AUTH0_CLIENT_ID!
 
   const res = NextResponse.redirect(
-    clientId
-      ? `https://${process.env.AUTH0_DOMAIN}/v2/logout?client_id=${clientId}&returnTo=${encodeURIComponent(returnTo)}`
-      : returnTo,
+    `https://${process.env.AUTH0_DOMAIN}/v2/logout?client_id=${clientId}&returnTo=${encodeURIComponent(returnTo)}`,
   )
 
   res.cookies.set(`session_${portal}`, '', { maxAge: 0, path: '/' })
