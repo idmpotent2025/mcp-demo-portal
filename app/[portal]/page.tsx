@@ -17,7 +17,7 @@ export default async function PortalPage({ params }: Props) {
 
   const session = await getSession(portalSlug)
   if (!session) {
-    redirect(`/api/auth/${portalSlug}/login`)
+    redirect(`/api/auth/login?portal=${portalSlug}`)
   }
 
   return (
@@ -36,7 +36,7 @@ export default async function PortalPage({ params }: Props) {
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-400">{session.email ?? session.sub}</span>
           <a
-            href={`/api/auth/${portalSlug}/logout`}
+            href={`/api/auth/logout?portal=${portalSlug}`}
             className="text-xs text-gray-400 hover:text-white border border-gray-700 hover:border-gray-500 px-3 py-1 rounded-lg transition-colors"
           >
             Sign out

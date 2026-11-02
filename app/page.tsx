@@ -32,7 +32,7 @@ export default function LandingPage() {
         {ALL_PORTALS.map((portal) => (
           <Link
             key={portal.slug}
-            href={`/api/auth/${portal.slug}/login`}
+            href={`/api/auth/login?portal=${portal.slug}`}
             className={`
               group relative flex flex-col gap-3 rounded-2xl border bg-gradient-to-br p-6
               transition-all duration-200 cursor-pointer
@@ -86,7 +86,7 @@ export default function LandingPage() {
               ['CIBA Push', 'Out-of-band device push approval flow'],
               ['Token Vault', 'Exchange token for vaulted 3rd-party credential'],
               ['RFC 8693 OBO', 'On-behalf-of audience token exchange'],
-              ['Multi-client Branding', 'Per-portal Page Template via distinct Client IDs'],
+              ['ext-brand Branding', 'Per-portal Page Template via ext-brand param in Universal Login'],
             ].map(([name, desc]) => (
               <div key={name} className="flex flex-col gap-1">
                 <span className="font-medium text-gray-200">{name}</span>
